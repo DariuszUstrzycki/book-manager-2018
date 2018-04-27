@@ -1,0 +1,10 @@
+- zadanie classwork z day 1/2 week6 (Hibernate) - Spring01Hibernate
+
+- zrobione nie-RESTowo przez mnie
+
+- nie ma w nim części z day 1/2 homework
+
+- relacje nie sa zrobione optymalnie, tzn:
+  a) ManyToMany lepiej jest zrobić jako 2 tables OneToMany z link table 
+  b) OneToOne tez zdaje sie nie jest zrobiona optymalnie dla PErson-PersonDetails: powinno byc bidirectional
+  Sprawdzić i porównac z projektem Associations

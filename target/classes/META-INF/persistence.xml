@@ -1,0 +1,57 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+	<persistence-unit name="bookstorePersistenceUnit">   <!-- entity manager will use it -->
+	
+	<!-- The no-argument constructor, which is also a JavaBean convention, is a requirement for all persistent classes. 
+			Hibernate needs to create objects for you, using Java Reflection. The constructor can be private. However, 
+			package or public visibility is required -->	
+	
+	
+	
+		<properties>
+		
+		<!-- db access data -->
+		<!-- nazwa bazy danych może byc inna od nazwy persistance unit:  books -->
+		
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/test" />    <!-- ?createDatabaseIfNotExist=true  ?useSSL=false  -->
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="coderslab" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+	<!--Odpowiada za generowanie TABEL (create) - tworzy bazę danych na podstawie 
+		adnotacji encji, nie nadpisuje zmian - nie dodal kolumny i nie usunal istniejacej 
+		(none) - nie wykonuje żadnych operacji (drop-and-create) - usunie a następnie 
+		utworzy (drop) - usunie elementy bazy danych zgodne z adnotacjami https://docs.oracle.com/javaee/7/tutorial/persistence-intro005.htm -->
+			
+			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+				
+				<!-- load data UWAGA: schema-generation.database.action ustawione na 'none' wylaczy ladowanie skryptu -->
+			<property	name="javax.persistence.sql-load-script-source" value="META-INF/sql/data.sql"	/>
+
+
+	<!-- Hibernate properties --><!-- dodatkowe specyficzne dla konkretnego dostawcy JPA ustawienia. Pełen 
+		zestaw opcji konfiguracyjnych znajdziemy w dokumentacji: https://docs.jboss.org/hibernate/orm/5.0/manual/en-US/html/ch03.html -->
+		<!--Aktualizacja struktury bazy danych. Wyświetlanie generowanego sql. Formatowanie 
+		wyświetlanego sql w sposób bardziej czytelny. domyslnie dialect: org.hibernate.dialect.MySQL5InnoDBDialect -->
+
+
+		<!-- wyłaczy walidacje na UI	<property name="javax.persistence.validation.mode" value="NONE"> -->
+
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			
+			
+			<!-- In most cases, Hibernate is able to properly determine which dialect to use.  -->
+			<property name="hibernate.dialect" 	value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.connection.useUnicode" value="true" />
+			<property name="hibernate.connection.characterEncoding" value="utf8" />
+			<property name="hibernate.connection.CharSet" value="utf8" />
+
+		</properties>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=red blink, ERROR=red, 
+				WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue}" />
+		</Console>
+
+
+		<File name="File-log" fileName="log/logging.log" append="false">
+			<PatternLayout>
+				<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %C - %msg%n</pattern>
+			</PatternLayout>
+		</File>
+		
+        <Console name="SecondConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=red, ERROR=red, WARN=yellow, INFO=orange, DEBUG=green, TRACE=blue}"/>
+        </Console>
+	</Appenders>
+	
+	<Loggers>
+	
+		<logger name="pl.coderslab.controller.BookController" level="TRACE" additivity="false">
+            <!--Log4j for the WEB MODULE 
+            <appender-ref ref="SecondConsole"/> -->
+        </logger>
+        
+        <logger name="pl.coderslab.controller" level="ALL" additivity="false">
+            <!--Log4j for the EJB MODULE -->
+            <appender-ref ref="SecondConsole"/>
+        </logger>
+		<Root level="ERROR"> <!-- overwrites Logger level -->
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="File-log" />
+		</Root>
+	</Loggers>
+</Configuration>
